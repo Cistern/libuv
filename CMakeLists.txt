@@ -170,6 +170,13 @@ else()
             )
     endif()
 
+    if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD" OR
+        ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
+        set (SOURCES ${SOURCES}
+            src/unix/kqueue.c
+            )
+    endif()
+
     add_library(uv ${SOURCES})
 
     find_library(M_LIB NAMES m)
@@ -193,6 +200,12 @@ else()
     if (${CMAKE_SYSTEM_NAME} MATCHES "AIX")
         find_library(PERFSTAT_LIB NAMES perfstat)
         target_link_libraries(uv ${PERFSTAT_LIB})
+    endif()
+
+    if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD" OR
+        ${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
+        find_library(KVM_LIB NAMES kvm)
+        target_link_libraries(uv ${KVM_LIB})
     endif()
 
 endif()
