@@ -98,7 +98,6 @@ else()
         src/unix/pipe.c
         src/unix/poll.c
         src/unix/process.c
-        src/unix/pthread-barrier.c
         src/unix/signal.c
         src/unix/spinlock.h
         src/unix/stream.c
@@ -117,6 +116,7 @@ else()
             src/unix/darwin.c
             src/unix/fsevents.c
             src/unix/darwin-proctitle.c
+            src/unix/pthread-barrier.c
             )
 
         #This is necessary to mute harmless warnings, as documented by https://github.com/libuv/libuv/issues/454
