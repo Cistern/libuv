@@ -71,7 +71,7 @@ if(WIN32)
         src/win/winapi.c
         src/win/winapi.h
         src/win/winsock.c
-        src/win/winsock.h    
+        src/win/winsock.h
         )
 
     add_library(uv ${SOURCES})
@@ -98,6 +98,7 @@ else()
         src/unix/pipe.c
         src/unix/poll.c
         src/unix/process.c
+        src/unix/pthread-barrier.c
         src/unix/signal.c
         src/unix/spinlock.h
         src/unix/stream.c
@@ -143,7 +144,7 @@ else()
             src/unix/sunos.c
             )
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "AIX")
         add_definitions(-D_ALL_SOURCE -D_XOPEN_SOURCE=500 -D_LINUX_SOURCE_COMPAT)
         set (SOURCES ${SOURCES}
@@ -151,7 +152,7 @@ else()
             )
         find_library(PERFSTAT_LIB NAMES perfstat)
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD" OR ${CMAKE_SYSTEM_NAME} MATCHES "DragonFlyBSD")
         set (SOURCES ${SOURCES}
             src/unix/freebsd.c
@@ -163,7 +164,7 @@ else()
             src/unix/openbsd.c
             )
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
         set (SOURCES ${SOURCES}
             src/unix/netbsd.c
@@ -188,7 +189,7 @@ else()
         find_library(RT_LIB NAMES rt)
         target_link_libraries(uv ${DL_LIB} ${RT_LIB})
     endif()
-    
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "SunOS")
         find_library(KSTAT_LIB NAMES kstat)
         find_library(NSL_LIB NAMES nsl)
